@@ -4,61 +4,63 @@ int alimento,
 reptPicaPau = 0,
 alimRaposinha,
 alimentoDig,
-resto = 0;
+resto;
+
 
 Console.Write("Alimentos na mesa: ");
-alimentoDig = Convert.ToInt32(Console.ReadLine());
+while (!Int32.TryParse(Console.ReadLine(), out alimentoDig))
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("\nValor inválido, tente novamente");
+    Console.ResetColor();
+    Console.Write("Alimentos na mesa: ");
+}
 alimento = alimentoDig;
+Console.Clear();
 
-while (alimento > 0) //enquanto o alimento é maior q 0
+Console.WriteLine("Raposinha diz ao Pica-Pau:\n");
+
+while (alimento > 0) 
 {
     reptPicaPau++; //nm de repetição/ contador && quantidade de alimento do pica-pau 
     Console.Write($"{reptPicaPau} pra vc");
     // Console.ReadKey();
 
-    if (resto >= 0) //??? n pode exibir se n tiver nada pra raposinha após (teste nm 28)
-    {
-        Console.Write(", ");
-    }
-
-
+    int reptRaposinha = 0;
     int colunaRaposinha = 0;
-    while (reptPicaPau > colunaRaposinha) //|| resto >0
+    while (reptPicaPau > colunaRaposinha)
     {
         resto = alimento - colunaRaposinha;
-
         colunaRaposinha++; //só aumenta neste while
 
         if (resto - 1 > 0) // SOLUÇÃO!!!!!
         {
-            Console.Write($"{colunaRaposinha} "); //só exibe a quantidade de vezes que esse 
-                                                  // bloco é executado, quando sai ele volta a ser 0
-            //add contador??? pra questão do último "pra mim"
+            Console.Write($" {colunaRaposinha}");
+            reptRaposinha++;
+            // bloco é executado, quando sai ele volta a ser 0
         }
-
-        Console.Write($" (resto: {resto}) ");
-        //RESOLVER A QUESTÃO DO TESTE NM 28, A VIRGULA NO NM E 
+        // Console.Write($" (resto: {resto}) ");
     }
 
-    // if (alimento > 0) //??? não pode exibir se o while a cima n exibir nada (teste nm 22)
-    // {
-        
-    // }
-
-
-    if (resto > 0)
+    if (alimento > reptPicaPau)
     {
         alimento = alimento - reptPicaPau - 1;
-        Console.WriteLine($"pra mim. ");
+        Console.WriteLine(" pra mim.");
+    }
+
+    else if (reptRaposinha == 0)
+    {
+        alimento = 0;
+        Console.WriteLine(".");
     }
 
     else
     {
         alimento = 0;
         // Console.WriteLine($"resto: {resto}, alimento {alimento}");
+        Console.WriteLine(" pra mim.");
     }
-
 }
 
 alimRaposinha = alimentoDig - reptPicaPau;
-Console.WriteLine($"\nPica-Pau recebeu {reptPicaPau} alimento(s)\nRaposinha recebeu {alimRaposinha} alimento(s)");
+Console.WriteLine($"\nPica-Pau recebeu {reptPicaPau} alimento(s)\nRaposinha recebeu {alimRaposinha} alimento(s)\n");
